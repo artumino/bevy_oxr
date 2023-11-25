@@ -85,9 +85,9 @@ pub fn drag_locomotion(
                 };
                 let drag_position = controller.grip_space(dragging_hand).0.pose.position.to_vec3();
                 
-                let (hand, delta) = match drag_state.drag_last {
+                let (hand, mut delta) = match drag_state.drag_last {
                     Some((hand, start)) if hand == dragging_hand => {
-                        (hand, drag_position - start)
+                        (hand, start - drag_position)
                     }
                     _ => {
                         (dragging_hand, Vec3::ZERO)
@@ -95,7 +95,14 @@ pub fn drag_locomotion(
                 };
 
                 drag_state.drag_last = Some((hand, drag_position));
+                
+                if !config.allow_up_down {
+                    delta.y = 0.0;
+                }
+
                 position.0.translation += delta;
+            } else {
+                drag_state.drag_last = None;
             }
         }
         Err(_) => info!("too many tracking roots"),

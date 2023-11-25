@@ -6,6 +6,7 @@ pub mod hands;
 pub mod interactions;
 pub mod oculus_touch;
 pub mod prototype_locomotion;
+pub mod drag_locomotion;
 pub mod trackers;
 pub mod xr_camera;
 

@@ -273,6 +273,7 @@ pub fn initialize_xr_graphics(
                         .limits()
                         .max_storage_buffer_binding_size,
                     max_push_constant_size: 4,
+                    max_compute_invocations_per_workgroup: 1_024, //TODO: configure this from the outside?
                     ..Default::default()
                 },
             },
